@@ -368,7 +368,7 @@ class Room {
   Event? _lastEvent;
 
   set lastEvent(Event? event) {
-    _lastEvent = event;
+    if (event?.status.isSent ?? true) _lastEvent = event;
   }
 
   Event? get lastEvent {
@@ -649,12 +649,14 @@ class Room {
         event['formatted_body'] = html;
       }
     }
-    return sendEvent(event,
-        txid: txid,
-        inReplyTo: inReplyTo,
-        editEventId: editEventId,
-        threadRootEventId: threadRootEventId,
-        threadLastEventId: threadLastEventId);
+    return sendEvent(
+      event,
+      txid: txid,
+      inReplyTo: inReplyTo,
+      editEventId: editEventId,
+      threadRootEventId: threadRootEventId,
+      threadLastEventId: threadLastEventId,
+    );
   }
 
   /// Sends a reaction to an event with an [eventId] and the content [key] into a room.

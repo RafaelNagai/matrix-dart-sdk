@@ -580,6 +580,7 @@ class Client extends MatrixApi {
     String? deviceId,
     String? initialDeviceDisplayName,
     bool? refreshToken,
+    bool waitForFirstSync = false,
     @Deprecated('Deprecated in favour of identifier.') String? user,
     @Deprecated('Deprecated in favour of identifier.') String? medium,
     @Deprecated('Deprecated in favour of identifier.') String? address,
@@ -632,6 +633,7 @@ class Client extends MatrixApi {
       newHomeserver: homeserver_,
       newDeviceName: initialDeviceDisplayName ?? '',
       newDeviceID: deviceId_,
+      waitForFirstSync: waitForFirstSync,
     );
     return response;
   }
@@ -1636,7 +1638,7 @@ class Client extends MatrixApi {
 
       // If we are refreshing the session, we are done here:
       if (onLoginStateChanged.value == LoginState.softLoggedOut) {
-        if (newRefreshToken != null && accessToken != null && userID != null) {
+        if (accessToken != null && userID != null) {
           // Store the new tokens:
           await _database?.updateClient(
             homeserver.toString(),

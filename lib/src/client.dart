@@ -580,7 +580,7 @@ class Client extends MatrixApi {
     String? deviceId,
     String? initialDeviceDisplayName,
     bool? refreshToken,
-    bool waitForFirstSync = false,
+    bool waitForFirstSync = true,
     @Deprecated('Deprecated in favour of identifier.') String? user,
     @Deprecated('Deprecated in favour of identifier.') String? medium,
     @Deprecated('Deprecated in favour of identifier.') String? address,
